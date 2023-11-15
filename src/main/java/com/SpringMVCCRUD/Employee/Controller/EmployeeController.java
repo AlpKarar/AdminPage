@@ -1,6 +1,7 @@
 package com.SpringMVCCRUD.Employee.Controller;
 
 import com.SpringMVCCRUD.Employee.Dto.EmployeeDto;
+import com.SpringMVCCRUD.Employee.Dto.EmployeeWithIdDto;
 import com.SpringMVCCRUD.Employee.Entity.Employee;
 import com.SpringMVCCRUD.Employee.Service.EmployeeService;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,6 @@ import java.util.Objects;
 public class EmployeeController {
 
     private EmployeeService employeeService;
-    private int updatedEmployeeId;
 
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -49,21 +49,22 @@ public class EmployeeController {
         return new ModelAndView("redirect:/employee/adminPage", modelMap);
     }
 
-    @GetMapping("/updateEmployeePage/{id}")
-    public String showUpdateEmployeePage(@PathVariable("id") int id, Model model) {
-        updatedEmployeeId = id;
+    @GetMapping("/updateEmployeePage")
+    public String showUpdateEmployeePage(@RequestParam("employeeId") int id, Model model) {
+        EmployeeWithIdDto employee = new EmployeeWithIdDto();
 
-        model.addAttribute("employee", new EmployeeDto());
+        employee.setId(id);
+        model.addAttribute("employee", employee);
 
         return "updateEmployeePage";
     }
 
     @PostMapping("/updateEmployee")
-    public ModelAndView updateEmployee(@ModelAttribute("employee")EmployeeDto employee,
+    public ModelAndView updateEmployee(@ModelAttribute("employee")EmployeeWithIdDto employee,
                                        ModelMap modelMap) {
 
         Employee employeeToUpdate = new Employee(
-                updatedEmployeeId,
+                employee.getId(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getEmail()
