@@ -23,6 +23,11 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @GetMapping("/loginPage")
+    public String showLoginPage() {
+        return "LoginPage";
+    }
+
     @GetMapping("/adminPage")
     public String showAdminPage(Model model) {
         List<Employee> allEmployees = employeeService.getAllEmployees();

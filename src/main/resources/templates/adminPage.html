@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Admin Page</title>
     <link rel="stylesheet" href="/css/adminPage.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Employee Admin Page</h1>
+        <div>
+            <h3>User</h3>
+            Username: <span sec:authentication="principal.username"></span>
+            <br>
+            Role(s): <span sec:authentication="principal.authorities"></span>
+            <br><br>
+        </div>
         <form th:action="@{/employee/showAddEmployeePage}" method="GET">
             <input type="submit" value="Add Employee" class="btn btn-primary mb-10">
         </form>
@@ -36,6 +46,9 @@
                 </tr>
             </tbody>
         </table>
+        <form th:action="@{/logout}" method="POST">
+            <input type="submit" value="Logout">
+        </form>
     </div>
 </body>
 </html>
