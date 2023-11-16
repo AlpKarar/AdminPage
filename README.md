@@ -10,5 +10,5 @@ The credentials are provided by the form in the login page, not Auth Basic or JW
 - Data JPA/Hibernate
 - PostgreSQL
 - Spring Security
-- Thymeleaf
-- HTML&CSS(Bootstrap)
+- Thymeleaf (HTML)
+- Bootstrap (CSS)
